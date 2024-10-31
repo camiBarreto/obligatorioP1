@@ -3,6 +3,7 @@ class Sistema {
     constructor() {
         this.usuarios = [];
         this.contadorId = 1;
+
         console.log("Se inicio el sistema");
     }
 
@@ -13,12 +14,12 @@ class Sistema {
             pApellido !== "" && isNaN(pApellido) && 
             pNombreUsuario !== "" && 
             pContrasena.length >= 5 && this.validarContrasena(pContrasena) && 
-            !isNaN(pTarjeta) && pTarjeta.toString().length === 16 && 
+            this.validarTarjetaDeCredito (pTarjeta) === true && 
             !isNaN(pCvc) && pCvc.toString().length === 3 &&
             this.buscarUsuario(pNombreUsuario) === null) /*Aquí puse igual a null cosa que si es nulo registra el nuevo usaurio*/{
             
 
-                let nuevoUsuario = new Usuario (this.contadorId, pNombre, pApellido, pNombreUsuario, pContrasena, pTarjeta, pCvc)
+                let nuevoUsuario = new Usuario (this.contadorId, pNombre, pApellido, pNombreUsuario, pContrasena, pTarjeta, pCvc, "cliente")
                 this.usuarios.push(nuevoUsuario);
                 seGuardoOK = true;
                 this.contadorId++
@@ -29,6 +30,28 @@ class Sistema {
         
 
         return seGuardoOK;
+
+    }
+
+    validarTarjetaDeCredito (pTarjeta) {
+        let tarjetaOk = false;
+        if (pTarjeta.length === 19) {
+            if (pTarjeta.charAt(4) === "-" && pTarjeta.charAt(9) === "-" && pTarjeta.charAt(14) === "-"){
+                
+                let numeroTarjeta = 0;
+                for (let i = 0 ; i < pTarjeta.length ; i++) {
+                    if (!isNaN(pTarjeta.charAt(i))){
+                        numeroTarjeta++;
+                    }
+                }
+
+                if (numeroTarjeta === 16) {
+                    tarjetaOk = true;
+                }
+            }
+        }
+
+        return tarjetaOk;
 
     }
 
@@ -48,6 +71,19 @@ class Sistema {
 
         return existeUsuario;
         
+    }
+
+    hacerLogin (pNombreUsuario , pContrasena) {
+
+        let usuario = this.buscarUsuario(pNombreUsuario);
+        if (usuario !== null) {
+            if (usuario.contrasena !== pContrasena) {
+                usuario = null;
+            }
+        }
+
+        return usuario;
+
     }
 
     validarContraseñaUsuario(pContrasena, pNombreUsuario){
@@ -94,7 +130,8 @@ class Sistema {
         }
         return contrasenaOK;
 }
-    
+
+ 
 
             
 
