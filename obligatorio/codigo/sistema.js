@@ -1,3 +1,4 @@
+
 class Sistema {
     constructor() {
         this.usuarios = [];
