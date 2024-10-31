@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="registroCliente">
+    <h2>Registrarse como cliente</h2>
+
+    <br /><br />
+    <label for="txtNombre">Ingrese su nombre</label>
+    <input type="text" id="txtNombre" placeholder="Ej.Carlos" />
+    <br /><br />
+    <label for="txtApellidoUsuario">Ingrese su apellido</label>
+    <input type="text" id="txtApellidoUsuario" placeholder="Ej.Perez" />
+    <br /><br />
+    <label for="txtNombreUsuario">Ingrese un nombre de usuario</label>
+    <input type="text" id="txtNombreUsuario" placeholder="Ej.CPerez48" />
+    <br /><br />
+    <label for="txtContrasena">Ingrese una contraseña</label>
+    <input type="text" id="txtContrasena" />
+    <br /><br />
+    <label for="txtTarjetaDeCredito">Ingrese su numero de tarjeta</label>
+    <input type="text" id="txtTarjetaDeCredito" placeholder="Formato:WWWW-XXXX-YYYY-ZZZZ"/>
+    <br /><br />
+    <label for="txtCVCTarjeta">Ingrese CVC de la tarjeta</label>
+    <input type="text" id="txtCVCTarjeta" placeholder="Ej. 157" />
+    <br /><br />
+
+    <input type="button" id="btnRegistroUsuario" value="Registrarse" />
+    <p id="pResultadoRegistrarseUsuario"></p>
+  </div>
+  <div id="loginUsuario">
+    <h2>Iniciar sesión</h2>
+    <label for="txtNombreUsuario">Ingrese su nombre de usuario</label>
+    <input type="text" id="txtNombreUsuario" placeholder="Ej.CPerez48" />
+    <br /><br />
+    <label for="txtContrasenaUsuario">Ingrese una contraseña</label>
+    <input type="password" id="txtContrasenaUsuario" />
+    <br /><br />
+
+    <input type="button" id="btnIniciarSesionUsuario" value="Iniciar sesión" />
+    <input type="button" id="btnRegistrarse" value="Registrarse" />
+    <p id="pResultadoLoginUsuario"></p>
+   </div>
+    
+    <hr />
+   <div id="vistaUsuario">
+    <h2>Destinos disponibles</h2>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio por persona</th>
+          <th>Oferta si/no</th>
+          <th>Foto del destino</th>
+          <th>Seleccionar destino</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Francia</td>
+          <td>Descripción del destino</td>
+          <td>1500</td>
+          <td>No</td>
+          <td>Foto</td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>Chile</td>
+          <td>Descripción del destino</td>
+          <td>300</td>
+          <td>No</td>
+          <td>Foto</td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>Uruguay</td>
+          <td>Descripción del destino</td>
+          <td>100</td>
+          <td>si</td>
+          <td>Foto</td>
+          <td><input type="checkbox" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <input type="button" id="reservarDestino" value="Reservar" />
+
+    <hr />
+
+    <h2>Reservar destino</h2>
+
+    <label for="cantidadPersonas">Ingrese cantidad de personas</label>
+    <input type="text" id="cantidadPersonas" placeholder="Ej: 2" />
+    <br /><br />
+    <label for="medioDePago">Seleccione un medio de pago</label>
+    <select id="medioDePago">
+      <option value="seleccione">Seleccione una opción</option>
+      <option value="millas">Millas</option>
+      <option value="dinero">Dinero</option>
+    </select>
+    <br /><br />
+    <input type="button" id="btnReserva" value="Reservar" />
+    <hr />
+  </div>
+<!--
+    <h2>Historial de reservas</h2>
+    <p id="nombreDeDestinoReservado">Nombre del destino reservado</p>
+
+    <p id="cantidadPersonasReserva">Se ha reservado para X personas</p>
+
+    <p id="montoTotal">El monto total de la reserva es de: X</p>
+
+    <p id="estadoReserva">La reserva se encuentra en estado: X</p>
+
+    <input type="button" id="cancelarReserva" value="Cancelar reserva" />
+
+    <hr />
+
+    <h2>Destinos en oferta</h2>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio por persona</th>
+          <th>Foto del destino</th>
+          <th>Seleccionar destino</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Francia</td>
+          <td>Descripción del destino</td>
+          <td>1500</td>
+          <td>Foto</td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>Chile</td>
+          <td>Descripción del destino</td>
+          <td>300</td>
+          <td>Foto</td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td>Uruguay</td>
+          <td>Descripción del destino</td>
+          <td>100</td>
+          <td>Foto</td>
+          <td><input type="checkbox" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <input type="button" id="reservarDestinoOferta" value="Reservar" />
+
+    <hr />
+
+    <h2>Sistema de millas</h2>
+    <p id="totalAPagar">El total a pagar es de: X</p>
+    <p id="cantidadMillasAcumuladas">
+      La cantidad de millas acumuladas es de: X
+    </p>
+    <label for="comoPagar">Cómo desea abonar?</label>
+    <select id="comoPagar">
+      <option value="seleccione">Seleccione una opción</option>
+      <option value="millas">Millas</option>
+      <option value="dinero">Dinero</option>
+    </select>
+    <br /><br />
+
+    <input type="button" id="btnPagar" value="Pagar" />
+  -->
+    <script src="./codigo/usuario.js"></script>
+    <script src="./codigo/sistema.js"></script>
+    <script src="./codigo/ui.js"></script>
+  </body>
+</html>
