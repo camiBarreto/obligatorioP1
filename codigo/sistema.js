@@ -3,6 +3,9 @@ class Sistema {
     constructor() {
         this.usuarios = [];
         this.contadorId = 1;
+        this.destinos = [];
+        this.crearUsuarioAdmin();
+        
 
         console.log("Se inicio el sistema");
     }
@@ -129,10 +132,58 @@ class Sistema {
             contrasenaOK = false;
         }
         return contrasenaOK;
-}
+    }
 
- 
+    crearUsuarioAdmin(pNombre, pApellido, pNombreUsuario, pContrasena, pTarjeta, pCvc) {
+           
+        let nuevoUsuario = new Usuario("","camila","barreto", "cBarreto", "Cami1", "1234-5556-5555-5555", "123", "administrador");
+        this.usuarios.push(nuevoUsuario);
+        
+    }
 
-            
+    registrarDestino (pNombre, pDescripcion, pPrecio, pCuposDisponibles, pImagen) {
+        let guardadoOK = false;
+
+        if (pNombre !== "" && pDescripcion !== "" && !isNaN(pPrecio) && pPrecio > 0 && !isNaN(pCuposDisponibles) && pCuposDisponibles > 0 && pImagen !== "") {
+            let nuevoDestino = new Destino (pNombre, pDescripcion, pPrecio, pCuposDisponibles, pImagen)
+            this.destinos.push(nuevoDestino);
+            guardadoOK = true;
+
+           }
+
+           return guardadoOK;
+           
+    }
+
+    armarTablaDestinos () {
+        let tablaArmada = `<table border=1>
+                            <thead>
+                                <th>ID</th>
+                                <th>Nombre destino</th>
+                                <th>Descripcion</th>
+                                <th>Precio</th>
+                                <th>Cupos</th>
+                                <th>Imagen</th>
+                            </thead>
+                            <tbody>`;
+
+        for (let i = 0; i < this.destinos.length; i++) {
+            let destinoActual = this.destinos[i];
+            tablaArmada += `<tr>
+                                <td>${destinoActual.id}</td>
+                                <td>${destinoActual.nombre}</td>
+                                <td>${destinoActual.descripcion}</td>
+                                <td>${destinoActual.precio}</td>
+                                <td>${destinoActual.cuposDisponibles}</td>
+                                <td><img width="30px" src="${destinoActual.imagen}" alt="${destinoActual.nombre}" /></td>
+                            </tr>`;
+        }
+
+        tablaArmada += `</tbody></table>`;
+
+        return tablaArmada;
+    
+
+    }
 
 }

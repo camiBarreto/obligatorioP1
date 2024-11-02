@@ -202,6 +202,188 @@
           <br /><br />
       
           <input type="button" id="btnPagar" value="Pagar" />
+
+          ----------------------------------------------------------------------------------
+          ADMIN:
+
+   
+
+    <h2>Gestionar Reservas</h2>
+    Sección para buscar reserva por datos o por estado
+    <h3>Buscar Reservas</h3>
+    <label for="txtNombreCliente">Nombre del Cliente:</label>
+    <input type="text" id="txtNombreCliente" placeholder="Ana González">
+    <br><br>
+    <label for="txtDestino">Destino:</label>
+    <input type="text" id="txtDestino" placeholder="Punta del Este">
+    <br><br>
+    <label for="txtFecha">Fecha del Viaje:</label>
+    <input type="date" id="txtFecha">
+    <br><br>
+    <label for="txtNombreCliente">Buscar por estado:</label>
+    <select id="slcEstados">
+        <option value="Pendientes">Pendientes</option>
+        <option value="Aprobada"></option>
+        <option value="Cancelada"></option>
+    </select>
+    <input type="button" id="btnBuscarReserva" value="Buscar">
+    <br><br>
+
+    Sección para ver las reservas existentes
+    <h3>Lista de Reservas</h3>
+    <table border="1">
+        <tr>
+            <th>Nombre del Cliente</th>
+            <th>Destino</th>
+            <th>Fecha</th>
+            <th>Acción</th>
+        </tr>
+        <tr>
+            <td>Ana González</td>
+            <td>Punta del Este</td>
+            <td>2024-12-25</td>
+            <td><input type="button" id="btnCambioEstado" value="Cambiar estado"></td>
+        </tr>
+        Reserva 2
+        <tr>
+            <td>Jorge Casuriaga</td>
+            <td>Madrid</td>
+            <td>2024-11-6</td>
+            <td><input type="button" id="btnCambioEstado" value="Cambiar estado"></td>
+        </tr>
+    </table>
+    <br><br>
+    <h2>Gestionar de saldos</h2>
+    <h3>Actualizar Saldo</h3>
+    <label for="txtSaldoActual">Saldo Actual (en $):</label>
+    <input type="text" id="txtSaldoActual" value="15000">
+    <br><br>
+    <label for="txtMillasActuales">Millas Acumuladas:</label>
+    <input type="text" id="txtMillasActuales" value="500">
+    <br><br>
+    <input type="button" id="btnActualizarSaldo" value="Actualizar Saldo y Millas">
+    <br><br>
+
+    Sección para mostrar el resultado de la búsqueda
+    <h3>Resultado de la Búsqueda</h3>
+    <p>Nombre del Cliente: Ana González</p>
+    <p>Saldo Actual: $15000</p>
+    <p>Millas Acumuladas: 500</p>
+    <br><br>
+    <hr>
+    -->
+    
+    <div id= "agregarDestinosAdmin">
+    <h2>Agregar Destinos</h2>
+    <label for="txtNombreDestino">Nombre del Destino:</label>
+    <input type="text" id="txtNombreDestino" placeholder="Punta del Este">
+    <br><br>
+    <label for="txtDescripcionDestino">Descripción:</label>
+    <textarea id="txtDescripcionDestino" rows="4" cols="50" placeholder="Breve descripción del destino"></textarea>
+    <br><br>
+    <label for="txtPrecioDestino">Precio por Persona (en $):</label>
+    <input type="text" id="txtPrecioDestino" placeholder="1000">
+    <br><br>
+    <label for="txtCuposDisponibles">Cupos Disponibles:</label>
+    <input type="text" id="txtCuposDisponibles" placeholder="50">
+    <br><br>
+    <label for="txtUrlImagen">URL de la Imagen:</label>
+    <input type="text" id="txtUrlImagen" placeholder="http://imagen.com/destino.jpg">
+    <br><br>
+    <input type="button" id="btnAgregarDestino" value="Agregar Destino">
+    <p id="pErroresAgregarDestinos"></p>
+
+    </div>
+    
+    <div id="tablaDestinos"></div>
+    <!--
+    <h2>Administrar Destinos</h2>
+
+    Sección para buscar un destino existente
+    <h3>Buscar Destino</h3>
+    <label for="txtNombreDestino">Nombre del Destino:</label>
+    <input type="text" id="txtNombreDestino" placeholder="Punta del Este">
+    <br><br>
+    <input type="button" id="btnBuscarDestino" value="Buscar Destino">
+    <br><br>
+
+    Sección para gestionar el destino
+    <h3>Detalles del Destino</h3>
+    <p>Nombre del Destino: Punta del Este</p>
+    <p>Descripción: Hermosas playas y gran vida nocturna.</p>
+    <p>Precio por Persona: $1000</p>
+    <p>Cupos Disponibles: 50</p>
+    <p>Estado: Activo</p>
+    <br>
+    Sección para modificar precio por persona
+    <label for="txtPrecioPersona">Modificar precio por persona:</label>
+    <input type="number" id="txtPrecioPersona" placeholder="15000">
+    <br><br>
+    Sección para modificar stock de cupos
+    <label for="txtCuposDisponibles">Modificar Cupos Disponibles:</label>
+    <input type="number" id="txtCuposDisponibles" placeholder="50">
+    <br><br>
+
+    Sección para cambiar el estado del destino
+    <label for="slcEstadoDestino">Cambiar Estado del Destino:</label>
+    <select id="slcEstadoDestino">
+        <option value="Activo">Activo</option>
+        <option value="Pausado">Pausado</option>
+    </select>
+    <br><br>
+
+    Sección para marcar destino como "en oferta"
+    <label for="chkOferta">Marcar como "En Oferta":</label>
+    <input type="checkbox" id="chkOferta">
+    <br><br>
+
+    <input type="button" id="btnGuardarCambios" value="Guardar Cambios">
+    
+    <br><br>
+
+    Simulación de resultados después de actualizar el destino
+    <h3>Resultado</h3>
+    <p>El destino Punta del Este ha sido actualizado correctamente.</p>
+    <p>Nuevo Stock de Cupos: 45</p>
+    <p>Estado: Activo</p>
+    <p>Oferta: Sí</p>
+    <br><br>
+    <hr>
+    <br>
+
+    <h2>Ver Informe de Ganancias</h2>
+    
+    Sección para mostrar el total de ganancias
+    <h3>Ganancias Totales</h3>
+    <p>Total de Reservas Confirmadas: 120</p>
+    <p>Ganancias Totales (en $): $120,000</p>
+    <br><br>
+
+    Tabla para mostrar ganancias por destino
+    <h3>Ganancias por Destino</h3>
+    <table border="1">
+        <tr>
+            <th>Destino</th>
+            <th>Cantidad de Personas</th>
+            <th>Ganancias (en $)</th>
+        </tr>
+        <tr>
+            <td>Punta del Este</td>
+            <td>50</td>
+            <td>$50,000</td>
+        </tr>
+        <tr>
+            <td>Colonia del Sacramento</td>
+            <td>40</td>
+            <td>$40,000</td>
+        </tr>
+        <tr>
+            <td>Montevideo</td>
+            <td>30</td>
+            <td>$30,000</td>
+        </tr>
+        Puedes agregar más destinos aquí
+    </table>
         -->
       </main>
       <!-- FIN CONTENIDO -->
@@ -215,6 +397,7 @@
 
     
     <script src="./codigo/usuario.js"></script>
+    <script src="./codigo/destino.js"></script>
     <script src="./codigo/sistema.js"></script>
     <script src="./codigo/ui.js"></script>
   </body>

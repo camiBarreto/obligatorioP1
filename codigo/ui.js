@@ -8,17 +8,26 @@ document
   .querySelector("#btnRegistrarse")
   .addEventListener("click", registrarse);
 
-document.querySelector("#btnRegistroUsuarioAtras").addEventListener("click" , irAlLogin)
+document
+  .querySelector("#btnRegistroUsuarioAtras")
+  .addEventListener("click", irAlLogin);
+document
+  .querySelector("#btnAgregarDestino")
+  .addEventListener("click", agregarDestinos);
 
 let sistema = new Sistema();
 ocultarSeccion("registroCliente");
 ocultarSeccion("vistaUsuario");
+ocultarSeccion("agregarDestinosAdmin");
+
 function registarseUsuarioUI() {
   let nombreUsuario = document.querySelector("#txtNombre").value;
   let apellidoUsuario = document.querySelector("#txtApellidoUsuario").value;
   let usuarioIngresado = document.querySelector("#txtNombreUsuario").value;
   let contrasenaIngresada = document.querySelector("#txtContrasena").value;
-  let tarjetaDeCreditoIngresada = document.querySelector("#txtTarjetaDeCredito").value;
+  let tarjetaDeCreditoIngresada = document.querySelector(
+    "#txtTarjetaDeCredito"
+  ).value;
   let cvcIngresado = Number(document.querySelector("#txtCVCTarjeta").value);
 
   let mensaje = "";
@@ -55,17 +64,18 @@ function registarseUsuarioUI() {
     );
   }
 
-  if (!sistema.validarTarjetaDeCredito (tarjetaDeCreditoIngresada)) {
-    errores.push("La tarjeta debe tener el siguiente formato: 1234-5678-9123-4567");
+  if (!sistema.validarTarjetaDeCredito(tarjetaDeCreditoIngresada)) {
+    errores.push(
+      "La tarjeta debe tener el siguiente formato: 1234-5678-9123-4567"
+    );
   }
-
 
   if (isNaN(cvcIngresado)) {
     errores.push("El cvc es numerico");
   }
 
   if (cvcIngresado.toString().length !== 3) {
-    errores.push("cvc debe tener 3 caract");
+    errores.push("cvc debe tener 3 caracteres");
   }
 
   if (errores.length === 0) {
@@ -82,6 +92,7 @@ function registarseUsuarioUI() {
       mensaje = "Usuario guardado correctamente";
       ocultarSeccion("registroCliente");
       mostrarSeccion("loginUsuario");
+      imprimirEnHTML("pResultadoLoginUsuario", "");
     } else {
       mensaje = "Hubo un error al guardar el usuario";
     }
@@ -98,6 +109,7 @@ function registarseUsuarioUI() {
 function mostrarSeccion(pIdSeccion) {
   document.querySelector(`#${pIdSeccion}`).style.display = "block";
 }
+
 function ocultarSeccion(pIdSeccion) {
   document.querySelector(`#${pIdSeccion}`).style.display = "none";
 }
@@ -110,9 +122,17 @@ function login() {
     /*saqué los console.log y puse dos mensajes de prueba */
     let usuario = sistema.hacerLogin(nombreUsuario, contrasenaUsuario);
     if (usuario !== null) {
-      ocultarSeccion("loginUsuario");
-      mostrarSeccion("vistaUsuario");
-      limpiarCampoRegistro ();
+      if (usuario.tipo === "cliente") {
+        ocultarSeccion("loginUsuario");
+        mostrarSeccion("vistaUsuario");
+        limpiarCampoRegistro();
+        
+      } else if (usuario.tipo === "administrador") {
+        ocultarSeccion("loginUsuario");
+        mostrarSeccion("agregarDestinosAdmin");
+      } else {
+        mensaje = "Error";
+      }
     } else {
       mensaje = "Contraseña o usuario incorrecto.";
     }
@@ -128,24 +148,87 @@ function registrarse() {
   mostrarSeccion("registroCliente");
 }
 
-function limpiarCampoRegistro () {
-    limpiarElemento("txtNombre");
-    limpiarElemento("txtApellidoUsuario");
-    limpiarElemento("txtNombreUsuario");
-    limpiarElemento("txtContrasena");
-    limpiarElemento("txtTarjetaDeCredito");
-    limpiarElemento("txtCVCTarjeta");
-
+function limpiarCampoRegistro() {
+  limpiarElemento("txtNombre");
+  limpiarElemento("txtApellidoUsuario");
+  limpiarElemento("txtNombreUsuario");
+  limpiarElemento("txtContrasena");
+  limpiarElemento("txtTarjetaDeCredito");
+  limpiarElemento("txtCVCTarjeta");
 }
 
-
-function limpiarElemento (pIdElemento) {
-    document.querySelector(`#${pIdElemento}`).value = "";
+function imprimirEnHTML(pIdElemento, pContenido) {
+  document.querySelector(`#${pIdElemento}`).innerHTML = pContenido;
 }
 
+function limpiarElemento(pIdElemento) {
+  document.querySelector(`#${pIdElemento}`).value = "";
+}
 
-function irAlLogin () {
-    mostrarSeccion("loginUsuario");
-    ocultarSeccion("registroCliente");
+function irAlLogin() {
+  mostrarSeccion("loginUsuario");
+  ocultarSeccion("registroCliente");
+}
+
+function agregarDestinos() {
+  let nombreDestino = document.querySelector("#txtNombreDestino").value;
+  let descripcionDestino = document.querySelector("#txtDescripcionDestino").value;
+  let precioDestino = Number(document.querySelector("#txtPrecioDestino").value);
+  let cuposDisponibles = Number(document.querySelector("#txtCuposDisponibles").value);
+  let urlImagenDestino = document.querySelector("#txtUrlImagen").value;
+
+  let errores = [];
+  let mensaje = "";
+
+  if (nombreDestino === "") {
+    errores.push("Debes ingresar un nombre de destino");
+  }
+
+  if (descripcionDestino === "") {
+    errores.push("Debes ingresar una descripcion");
+  }
+
+  if (isNaN(precioDestino) || precioDestino <= 0 || precioDestino === "") {
+    errores.push("El precio debe ser un numero mayor a 0");
+  }
   
+  
+  if (isNaN(cuposDisponibles)) {
+    errores.push("Los cupos deben ser un numero mayor a 0");
+  }
+
+  if (cuposDisponibles <= 0) {
+    errores.push("Los cupos deben ser mas que 0");
+  }
+
+  if (urlImagenDestino === "") {
+    errores.push("Debes ingresar una foto");
+  }
+
+  if (errores.length === 0) {
+    let destinoGuardadoOK = sistema.registrarDestino(
+      nombreDestino,
+      descripcionDestino,
+      precioDestino,
+      cuposDisponibles,
+      urlImagenDestino
+    );
+
+    if (destinoGuardadoOK) {
+      mensaje = "Destino guardado correctamente";
+      let tabla = sistema.armarTablaDestinos();
+      imprimirEnHTML ("tablaDestinos", tabla);
+    } else {
+      mensaje = "Hubo errores en el guardado";
+    }
+  } else {
+    mensaje = "<ul>";
+    for (let i = 0; i < errores.length; i++) {
+      mensaje += `<li>${errores[i]}</li>`;
+    }
+    mensaje += "</ul>";
+  }
+
+  document.querySelector("#pErroresAgregarDestinos").innerHTML = mensaje;
+
 }
