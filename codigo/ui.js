@@ -130,6 +130,8 @@ function login() {
       } else if (usuario.tipo === "administrador") {
         ocultarSeccion("loginUsuario");
         mostrarSeccion("agregarDestinosAdmin");
+        ocultarSeccion("divSlcEstadoDestino");
+
       } else {
         mensaje = "Error";
       }
@@ -176,6 +178,8 @@ function agregarDestinos() {
   let precioDestino = Number(document.querySelector("#txtPrecioDestino").value);
   let cuposDisponibles = Number(document.querySelector("#txtCuposDisponibles").value);
   let urlImagenDestino = document.querySelector("#txtUrlImagen").value;
+  let slcOfertaDestino = document.querySelector("#slcOfertaDestino").value;
+
 
   let errores = [];
   let mensaje = "";
@@ -205,15 +209,21 @@ function agregarDestinos() {
     errores.push("Debes ingresar una foto");
   }
 
+  if (slcOfertaDestino === "") {
+    errores.push("Debes seleccionar si se encuentra en oferta o no");
+
+  }
+
   if (errores.length === 0) {
     let destinoGuardadoOK = sistema.registrarDestino(
       nombreDestino,
       descripcionDestino,
       precioDestino,
       cuposDisponibles,
-      urlImagenDestino
+      urlImagenDestino,
+      slcOfertaDestino
     );
-
+    
     if (destinoGuardadoOK) {
       mensaje = "Destino guardado correctamente";
       let tabla = sistema.armarTablaDestinos();

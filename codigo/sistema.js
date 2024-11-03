@@ -140,12 +140,11 @@ class Sistema {
         this.usuarios.push(nuevoUsuario);
         
     }
-
-    registrarDestino (pNombre, pDescripcion, pPrecio, pCuposDisponibles, pImagen) {
+    registrarDestino (pNombre, pDescripcion, pPrecio, pCuposDisponibles, pImagen, pOferta) {
         let guardadoOK = false;
 
-        if (pNombre !== "" && pDescripcion !== "" && !isNaN(pPrecio) && pPrecio > 0 && !isNaN(pCuposDisponibles) && pCuposDisponibles > 0 && pImagen !== "") {
-            let nuevoDestino = new Destino (pNombre, pDescripcion, pPrecio, pCuposDisponibles, pImagen)
+        if (pNombre !== "" && pDescripcion !== "" && !isNaN(pPrecio) && pPrecio > 0 && !isNaN(pCuposDisponibles) && pCuposDisponibles > 0 && pImagen !== "" && pOferta !== "") {
+            let nuevoDestino = new Destino (pNombre, pDescripcion, pPrecio, pCuposDisponibles, pImagen, "activo", pOferta);
             this.destinos.push(nuevoDestino);
             guardadoOK = true;
 
@@ -164,6 +163,8 @@ class Sistema {
                                 <th>Precio</th>
                                 <th>Cupos</th>
                                 <th>Imagen</th>
+                                <th>Estado</th>
+                                <th>Oferta</th>
                             </thead>
                             <tbody>`;
 
@@ -176,6 +177,8 @@ class Sistema {
                                 <td>${destinoActual.precio}</td>
                                 <td>${destinoActual.cuposDisponibles}</td>
                                 <td><img width="30px" src="${destinoActual.imagen}" alt="${destinoActual.nombre}" /></td>
+                                <td>${destinoActual.estado}</td>
+                                <td>${destinoActual.oferta}</td>
                             </tr>`;
         }
 

@@ -287,9 +287,32 @@
     <label for="txtCuposDisponibles">Cupos Disponibles:</label>
     <input type="text" id="txtCuposDisponibles" placeholder="50">
     <br><br>
+
+   
+
     <label for="txtUrlImagen">URL de la Imagen:</label>
     <input type="text" id="txtUrlImagen" placeholder="http://imagen.com/destino.jpg">
     <br><br>
+
+    
+    <div id="divSlcEstadoDestino">
+      <label for="slcEstadoDestino">Estado del destino</label>
+      <select id="slcEstadoDestino">
+        <option value="activo">Activo</option>
+        <option value="pausado">Pausado</option>
+      </select>
+      </div>
+
+    <div id="divSlcOfertaDestino">
+    <label for="slcOfertaDestino">El destino se encuentra en oferta?</label>
+    <select id="slcOfertaDestino">
+      <option value="">Seleccione una opcion</option>
+      <option value="si">Si</option>
+      <option value="no">No</option>
+    </select>
+    <br><br>
+    </div>
+    
     <input type="button" id="btnAgregarDestino" value="Agregar Destino">
     <p id="pErroresAgregarDestinos"></p>
 
