@@ -4,8 +4,8 @@ class Sistema {
         this.usuarios = [];
         this.contadorId = 1;
         this.destinos = [];
-        this.crearUsuarioAdmin();
-        
+        this.precargarDestinos();
+        this.precargarAdmin();
 
         console.log("Se inicio el sistema");
     }
@@ -23,6 +23,32 @@ class Sistema {
             
 
                 let nuevoUsuario = new Usuario (this.contadorId, pNombre, pApellido, pNombreUsuario, pContrasena, pTarjeta, pCvc, "cliente")
+                this.usuarios.push(nuevoUsuario);
+                seGuardoOK = true;
+                this.contadorId++
+
+
+
+            }
+        
+
+        return seGuardoOK;
+
+    }
+
+    registrarAdministrador(pNombre, pApellido, pNombreUsuario, pContrasena, pTarjeta, pCvc) {
+        
+        let seGuardoOK = false;
+        if(pNombre !== "" && isNaN(pNombre) && 
+            pApellido !== "" && isNaN(pApellido) && 
+            pNombreUsuario !== "" && 
+            pContrasena.length >= 5 && this.validarContrasena(pContrasena) && 
+            this.validarTarjetaDeCredito (pTarjeta) === true && 
+            !isNaN(pCvc) && pCvc.toString().length === 3 &&
+            this.buscarUsuario(pNombreUsuario) === null) /*Aquí puse igual a null cosa que si es nulo registra el nuevo usaurio*/{
+            
+
+                let nuevoUsuario = new Usuario (this.contadorId, pNombre, pApellido, pNombreUsuario, pContrasena, pTarjeta, pCvc, "administrador")
                 this.usuarios.push(nuevoUsuario);
                 seGuardoOK = true;
                 this.contadorId++
@@ -134,12 +160,19 @@ class Sistema {
         return contrasenaOK;
     }
 
-    crearUsuarioAdmin(pNombre, pApellido, pNombreUsuario, pContrasena, pTarjeta, pCvc) {
+    
+
+    precargarAdmin() {
            
-        let nuevoUsuario = new Usuario("","camila","barreto", "cBarreto", "Cami1", "1234-5556-5555-5555", "123", "administrador");
-        this.usuarios.push(nuevoUsuario);
+        this.registrarAdministrador("Administrador","admin", "Admin", "Admin1", "1234-5556-5555-5555", "123");
         
     }
+
+    precargarDestinos() {
+       this.registrarDestino("Punta del Este", "Playa" , 10000 , 200 , "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIkO9C_xdYpuOHYoV7EJvm3eYzCXqLEAVRQ&s", "si");
+    }
+
+
     registrarDestino (pNombre, pDescripcion, pPrecio, pCuposDisponibles, pImagen, pOferta) {
         let guardadoOK = false;
 

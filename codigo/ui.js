@@ -11,23 +11,38 @@ document
 document
   .querySelector("#btnRegistroUsuarioAtras")
   .addEventListener("click", irAlLogin);
-document
-  .querySelector("#btnAgregarDestino")
-  .addEventListener("click", agregarDestinos);
+document.querySelector("#btnAgregarDestino").addEventListener("click", agregarDestinos);
+document.querySelector("#aCerrarSesion").addEventListener("click", logOut);
+document.querySelector("#verDestinosAdmin").addEventListener("click", armarTablaVerDestinos);
+
+
+let tabla;
 
 let sistema = new Sistema();
-ocultarSeccion("registroCliente");
-ocultarSeccion("vistaUsuario");
-ocultarSeccion("agregarDestinosAdmin");
+precargarInicio();
+
+
+function precargarInicio() {
+  ocultarSeccion("registroCliente");
+  ocultarSeccion("vistaUsuario");
+  ocultarSeccion("agregarDestinosAdmin");
+  mostrarSeccion("loginUsuario");
+  ocultarSeccion ("nav");
+  }
+
+function logOut () {
+  precargarInicio();
+  ocultarSeccion("tablaDestinos");
+  limpiarElemento("txtNombreUsuarioLogin");
+  limpiarElemento("txtContrasenaUsuario");
+}
 
 function registarseUsuarioUI() {
   let nombreUsuario = document.querySelector("#txtNombre").value;
   let apellidoUsuario = document.querySelector("#txtApellidoUsuario").value;
   let usuarioIngresado = document.querySelector("#txtNombreUsuario").value;
   let contrasenaIngresada = document.querySelector("#txtContrasena").value;
-  let tarjetaDeCreditoIngresada = document.querySelector(
-    "#txtTarjetaDeCredito"
-  ).value;
+  let tarjetaDeCreditoIngresada = document.querySelector("#txtTarjetaDeCredito").value;
   let cvcIngresado = Number(document.querySelector("#txtCVCTarjeta").value);
 
   let mensaje = "";
@@ -90,6 +105,7 @@ function registarseUsuarioUI() {
 
     if (usuarioGuardado) {
       mensaje = "Usuario guardado correctamente";
+      
       ocultarSeccion("registroCliente");
       mostrarSeccion("loginUsuario");
       imprimirEnHTML("pResultadoLoginUsuario", "");
@@ -126,11 +142,18 @@ function login() {
         ocultarSeccion("loginUsuario");
         mostrarSeccion("vistaUsuario");
         limpiarCampoRegistro();
-        
+        mostrarSeccion("nav")
+        navCliente ();
+
+               
       } else if (usuario.tipo === "administrador") {
+        mostrarSeccion("divContenidoAdministrador")
         ocultarSeccion("loginUsuario");
         mostrarSeccion("agregarDestinosAdmin");
         ocultarSeccion("divSlcEstadoDestino");
+        mostrarSeccion("nav")
+        navAdmin ();
+
 
       } else {
         mensaje = "Error";
@@ -148,6 +171,17 @@ function login() {
 function registrarse() {
   ocultarSeccion("loginUsuario");
   mostrarSeccion("registroCliente");
+  ocultarSeccion("nav")
+}
+
+function navCliente () {
+  mostrarSeccion ("liCerrarSesion");
+
+}
+
+function navAdmin () {
+  mostrarSeccion ("liCerrarSesion");
+  mostrarSeccion ("liDestinosAdmin");
 }
 
 function limpiarCampoRegistro() {
@@ -166,6 +200,7 @@ function imprimirEnHTML(pIdElemento, pContenido) {
 function limpiarElemento(pIdElemento) {
   document.querySelector(`#${pIdElemento}`).value = "";
 }
+
 
 function irAlLogin() {
   mostrarSeccion("loginUsuario");
@@ -226,8 +261,8 @@ function agregarDestinos() {
     
     if (destinoGuardadoOK) {
       mensaje = "Destino guardado correctamente";
-      let tabla = sistema.armarTablaDestinos();
-      imprimirEnHTML ("tablaDestinos", tabla);
+      tabla = sistema.armarTablaDestinos();
+      
     } else {
       mensaje = "Hubo errores en el guardado";
     }
@@ -240,5 +275,11 @@ function agregarDestinos() {
   }
 
   document.querySelector("#pErroresAgregarDestinos").innerHTML = mensaje;
+
+}
+
+function armarTablaVerDestinos () {
+  ocultarSeccion("agregarDestinosAdmin")
+  imprimirEnHTML ("tablaDestinos", tabla);
 
 }
