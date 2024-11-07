@@ -3,8 +3,10 @@ class Sistema {
     this.usuarios = [];
     this.contadorId = 1;
     this.destinos = [];
+    this.reservas = [];
     this.precargarDestinos();
     this.precargarAdmin();
+    this.precargarUsuario();
 
     console.log("Se inicio el sistema");
   }
@@ -196,15 +198,22 @@ class Sistema {
     );
   }
 
+  precargarUsuario () {
+    this.registrarUsuario(
+      "Camila",
+      "Barreto",
+      "cBarreto",
+      "Cami1",
+      "1234-5556-5555-5555",
+      "123"
+    )
+  }
+
   precargarDestinos() {
-    this.registrarDestino(
-      "Punta del Este",
-      "Playa",
-      5000,
-      20,
-      "https://laguiadelociouruguay.com/wp-content/uploads/2024/01/punta-del-este-uruguay.webp",
-      "si"
-    );
+    this.registrarDestino("Punta del Este", "Playa",5000,20,"https://laguiadelociouruguay.com/wp-content/uploads/2024/01/punta-del-este-uruguay.webp","true");
+    this.registrarDestino("Piriapolis", "dsfsdfddsdsf",200,7,"https://laguiadelociouruguay.com/wp-content/uploads/2024/01/punta-del-este-uruguay.webp","false");
+    this.registrarDestino("La Paloma", "sfdffffffffsf",10554,2,"https://laguiadelociouruguay.com/wp-content/uploads/2024/01/punta-del-este-uruguay.webp","false");
+    this.registrarDestino("Aguas Dulces", "sfsdsfdfddddd",5552,15,"https://laguiadelociouruguay.com/wp-content/uploads/2024/01/punta-del-este-uruguay.webp","true");
   }
 
   registrarDestino(
@@ -412,7 +421,7 @@ activarOferta(pIdDestino) {
     
     for (let i = 0; i < this.destinos.length; i++) {
         let destinoActual = this.destinos[i];
-        if (destinoActual.estado === "activo" && destinoActual.cuposDisponibles > 0) {
+        if (destinoActual.estado && destinoActual.cuposDisponibles > 0) {
         tablaArmada += `<tr>
                                 <td>${destinoActual.nombre}</td>
                                 <td>${destinoActual.descripcion}</td>
@@ -420,7 +429,7 @@ activarOferta(pIdDestino) {
                                 <td>${destinoActual.cuposDisponibles}</td>
                                 <td><img width="30px" src="${destinoActual.imagen}" alt="${destinoActual.nombre}" /></td>
                                 <td>${destinoActual.oferta}</td>
-                                <td><input type= "button" value="Reservar" id=${destinoActual.id}></td>
+                                <td><input class="btnsReservarProducto" id-producto="${destinoActual.id}" id="btnReservarProducto${destinoActual.id}" type="button" value="Reservar"></td>
                             </tr>`;
       }
 
@@ -430,6 +439,19 @@ activarOferta(pIdDestino) {
     return tablaArmada;
     
   }
+
+  reservarDestino (pIdProducto, pNombreUsuario) {
+    let destinoAComprar = this.buscarDestinoPorID(pIdProducto);
+    let usuarioComprador = this.buscarUsuario(pNombreUsuario);
+
+    if (destinoAComprar !== null && usuarioComprador !== null) {
+        let nuevaReserva = new Reserva(destinoAComprar, usuarioComprador);
+        this.reservas.push(nuevaReserva);
+        console.log("Reserva realizada");
+    } else {
+        console.error("Error en la reserva");
+    }
+}
 
   
 }

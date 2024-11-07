@@ -11,7 +11,7 @@ class Destino {
         this.precio = pPrecio;
         this.cuposDisponibles = pCuposDisponibles;
         this.imagen = pImagen;
-        this.activo = true;
+        this.estado = true;
         this.oferta = false;
 
     }

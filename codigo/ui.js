@@ -158,8 +158,7 @@ function login() {
         mostrarSeccion("nav")
         mostrarSeccion("vistaUsuario");
         navCliente ();
-        armarTablaVerDestinosUsuario();
-
+        armarTablaVerDestinosUsuario ();
                
       } else if (usuario.tipo === "administrador") {
         mostrarSeccion("divContenidoAdministrador")
