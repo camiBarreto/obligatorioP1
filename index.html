@@ -70,50 +70,10 @@
           <hr />
          <div id="vistaUsuario">
           <h2>Destinos disponibles</h2>
+          
+          <div id="tablaDestinosUsuario"></div>
       
-          <table border="1">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Precio por persona</th>
-                <th>Oferta si/no</th>
-                <th>Foto del destino</th>
-                <th>Seleccionar destino</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Francia</td>
-                <td>Descripción del destino</td>
-                <td>1500</td>
-                <td>No</td>
-                <td>Foto</td>
-                <td><input type="checkbox" /></td>
-              </tr>
-              <tr>
-                <td>Chile</td>
-                <td>Descripción del destino</td>
-                <td>300</td>
-                <td>No</td>
-                <td>Foto</td>
-                <td><input type="checkbox" /></td>
-              </tr>
-              <tr>
-                <td>Uruguay</td>
-                <td>Descripción del destino</td>
-                <td>100</td>
-                <td>si</td>
-                <td>Foto</td>
-                <td><input type="checkbox" /></td>
-              </tr>
-            </tbody>
-          </table>
-          <br />
-          <input type="button" id="reservarDestino" value="Reservar" />
-      
-          <hr />
-      
+          <div id="reservaDestinosUsuarios">
           <h2>Reservar destino</h2>
       
           <label for="cantidadPersonas">Ingrese cantidad de personas</label>
@@ -127,8 +87,8 @@
           </select>
           <br /><br />
           <input type="button" id="btnReserva" value="Reservar" />
-          <hr />
         </div>
+       </div>
       <!--
           <h2>Historial de reservas</h2>
           <p id="nombreDeDestinoReservado">Nombre del destino reservado</p>
@@ -316,11 +276,13 @@
     
     
     <div id="tablaDestinos"></div>
+    
   </div>
-    <!--
+    
+    <div id="formularioEdicion">
     <h2>Administrar Destinos</h2>
 
-    Sección para buscar un destino existente
+    <!--Sección para buscar un destino existente
     <h3>Buscar Destino</h3>
     <label for="txtNombreDestino">Nombre del Destino:</label>
     <input type="text" id="txtNombreDestino" placeholder="Punta del Este">
@@ -334,42 +296,28 @@
     <p>Descripción: Hermosas playas y gran vida nocturna.</p>
     <p>Precio por Persona: $1000</p>
     <p>Cupos Disponibles: 50</p>
-    <p>Estado: Activo</p>
+    <p>Estado: Activo</p>-->
     <br>
+    
+    <input type="hidden" id="idDestinoEditar">
+    <br><br>
     Sección para modificar precio por persona
     <label for="txtPrecioPersona">Modificar precio por persona:</label>
-    <input type="number" id="txtPrecioPersona" placeholder="15000">
+    <input type="number" id="txtPrecioPersona" placeholder="">
     <br><br>
     Sección para modificar stock de cupos
-    <label for="txtCuposDisponibles">Modificar Cupos Disponibles:</label>
-    <input type="number" id="txtCuposDisponibles" placeholder="50">
+    <label for="txtCuposDisponiblesAdmin">Modificar Cupos Disponibles:</label>
+    <input type="number" id="txtCuposDisponiblesAdmin" placeholder="">
     <br><br>
 
-    Sección para cambiar el estado del destino
-    <label for="slcEstadoDestino">Cambiar Estado del Destino:</label>
-    <select id="slcEstadoDestino">
-        <option value="Activo">Activo</option>
-        <option value="Pausado">Pausado</option>
-    </select>
-    <br><br>
-
-    Sección para marcar destino como "en oferta"
-    <label for="chkOferta">Marcar como "En Oferta":</label>
-    <input type="checkbox" id="chkOferta">
     <br><br>
 
     <input type="button" id="btnGuardarCambios" value="Guardar Cambios">
     
     <br><br>
 
-    Simulación de resultados después de actualizar el destino
-    <h3>Resultado</h3>
-    <p>El destino Punta del Este ha sido actualizado correctamente.</p>
-    <p>Nuevo Stock de Cupos: 45</p>
-    <p>Estado: Activo</p>
-    <p>Oferta: Sí</p>
-    <br><br>
-    <hr>
+  </div>
+  <!--
     <br>
 
     <h2>Ver Informe de Ganancias</h2>

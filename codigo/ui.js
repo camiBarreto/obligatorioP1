@@ -16,10 +16,16 @@ document.querySelector("#aCerrarSesion").addEventListener("click", logOut);
 document.querySelector("#verDestinosAdmin").addEventListener("click", armarTablaVerDestinos);
 
 
+
+
+
+
 let tabla;
 
 let sistema = new Sistema();
 precargarInicio();
+let nombreUsuarioLogueado = "";
+
 
 
 function precargarInicio() {
@@ -28,14 +34,21 @@ function precargarInicio() {
   ocultarSeccion("agregarDestinosAdmin");
   mostrarSeccion("loginUsuario");
   ocultarSeccion ("nav");
+  ocultarSeccion("tablaDestinos");
+  ocultarSeccion("formularioEdicion");
+  ocultarSeccion("divContenidoAdministrador");
+  
   }
 
 function logOut () {
   precargarInicio();
-  ocultarSeccion("tablaDestinos");
+  nombreUsuarioLogueado = "";
   limpiarElemento("txtNombreUsuarioLogin");
   limpiarElemento("txtContrasenaUsuario");
+
 }
+
+
 
 function registarseUsuarioUI() {
   let nombreUsuario = document.querySelector("#txtNombre").value;
@@ -138,12 +151,14 @@ function login() {
     /*saqué los console.log y puse dos mensajes de prueba */
     let usuario = sistema.hacerLogin(nombreUsuario, contrasenaUsuario);
     if (usuario !== null) {
+      nombreUsuarioLogueado = usuario.nombreUsuario;
       if (usuario.tipo === "cliente") {
         ocultarSeccion("loginUsuario");
-        mostrarSeccion("vistaUsuario");
         limpiarCampoRegistro();
         mostrarSeccion("nav")
+        mostrarSeccion("vistaUsuario");
         navCliente ();
+        armarTablaVerDestinosUsuario();
 
                
       } else if (usuario.tipo === "administrador") {
@@ -157,12 +172,15 @@ function login() {
 
       } else {
         mensaje = "Error";
+        nombreUsuarioLogueado = "";
       }
     } else {
       mensaje = "Contraseña o usuario incorrecto.";
+      nombreUsuarioLogueado = "";
     }
   } else {
     mensaje = "Debes ingresar datos a los campos";
+    nombreUsuarioLogueado = "";
   }
 
   document.querySelector("#pResultadoLoginUsuario").innerHTML = mensaje;
@@ -171,11 +189,12 @@ function login() {
 function registrarse() {
   ocultarSeccion("loginUsuario");
   mostrarSeccion("registroCliente");
-  ocultarSeccion("nav")
+  ocultarSeccion("nav");
 }
 
 function navCliente () {
   mostrarSeccion ("liCerrarSesion");
+  ocultarSeccion("liDestinosAdmin");
 
 }
 
@@ -278,8 +297,83 @@ function agregarDestinos() {
 
 }
 
+
+
 function armarTablaVerDestinos () {
-  ocultarSeccion("agregarDestinosAdmin")
+
+  tabla = sistema.armarTablaDestinos();
+  ocultarSeccion("agregarDestinosAdmin");
   imprimirEnHTML ("tablaDestinos", tabla);
+  mostrarSeccion ("tablaDestinos");
+  mostrarSeccion ("formularioEdicion");
+  agregarEventosClickBtnsPausarDestinoAdmin();
+  agregarEventosClickBtnsActivarDestinoAdmin();
+  agregarEventosClickBtnsPausarOfertaAdmin();
+  agregarEventosClickBtnsActivarOfertaAdmin();
 
 }
+//Funciones para eventos de botón estado Pausado o Activo
+function agregarEventosClickBtnsPausarDestinoAdmin() {
+  let listaBotones = document.querySelectorAll(".btnsPausarDestino");
+  for(let i = 0; i < listaBotones.length; i++) {
+      let botonActual = listaBotones[i];
+      document.querySelector(`#${botonActual.id}`).addEventListener("click", pausarDestinoUI);
+  }
+}
+
+function agregarEventosClickBtnsActivarDestinoAdmin() {
+  let listaBotones = document.querySelectorAll(".btnsActivarDestino");
+  for(let i = 0; i < listaBotones.length; i++) {
+      let botonActual = listaBotones[i];
+      document.querySelector(`#${botonActual.id}`).addEventListener("click", activarDestinoUI);
+  }
+}
+function pausarDestinoUI() { 
+  let idDestino = this.getAttribute("id-destino");
+  sistema.pausarDestino(idDestino);
+  armarTablaVerDestinos();
+}
+
+function activarDestinoUI() { 
+  let idDestino = this.getAttribute("id-destino");
+   sistema.activarDestino(idDestino);
+   armarTablaVerDestinos();
+}
+//Funciones para eventos de botón oferta "Pausada" o "Activa"
+function agregarEventosClickBtnsPausarOfertaAdmin() {
+  let listaBotones = document.querySelectorAll(".btnsPausarOferta");
+  for(let i = 0; i < listaBotones.length; i++) {
+      let botonActual = listaBotones[i];
+      document.querySelector(`#${botonActual.id}`).addEventListener("click", pausarOfertaUI);
+  }
+}
+
+function agregarEventosClickBtnsActivarOfertaAdmin() {
+  let listaBotones = document.querySelectorAll(".btnsActivarOferta");
+  for(let i = 0; i < listaBotones.length; i++) {
+      let botonActual = listaBotones[i];
+      document.querySelector(`#${botonActual.id}`).addEventListener("click", activarOfertaUI);
+  }
+}
+function pausarOfertaUI() { 
+  let idDestino = this.getAttribute("id-destino");
+  sistema.pausarOferta(idDestino);
+  armarTablaVerDestinos();
+}
+
+function activarOfertaUI() { 
+  let idDestino = this.getAttribute("id-destino");
+   sistema.activarOferta(idDestino);
+   armarTablaVerDestinos();
+}
+
+
+//FIN PRUEBA
+
+function armarTablaVerDestinosUsuario () {
+  let tablaVerDestinosUsuario = sistema.armarTablaDestinosClientes();
+  imprimirEnHTML ("tablaDestinosUsuario", tablaVerDestinosUsuario);
+  mostrarSeccion ("tablaDestinosUsuario");
+
+}
+
