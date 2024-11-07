@@ -159,6 +159,7 @@ function login() {
         mostrarSeccion("vistaUsuario");
         navCliente ();
         armarTablaVerDestinosUsuario ();
+        agregarEventosClickBtnsReservaDestinoUsuario();
                
       } else if (usuario.tipo === "administrador") {
         mostrarSeccion("divContenidoAdministrador")
@@ -374,5 +375,19 @@ function armarTablaVerDestinosUsuario () {
   imprimirEnHTML ("tablaDestinosUsuario", tablaVerDestinosUsuario);
   mostrarSeccion ("tablaDestinosUsuario");
 
+}
+
+function agregarEventosClickBtnsReservaDestinoUsuario() {
+  let listaBotones = document.querySelectorAll(".btnsReservarProducto");
+  for(let i = 0; i < listaBotones.length; i++) {
+      let botonActual = listaBotones[i];
+      document.querySelector(`#${botonActual.id}`).addEventListener("click", reservarProductoUI);
+  }
+}
+
+function reservarProductoUI() {
+  let idProducto = Number(this.getAttribute("id-producto"));
+  sistema.reservarDestino(idProducto, nombreUsuarioLogueado);
+  
 }
 

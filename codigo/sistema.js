@@ -440,8 +440,8 @@ activarOferta(pIdDestino) {
     
   }
 
-  reservarDestino (pIdProducto, pNombreUsuario) {
-    let destinoAComprar = this.buscarDestinoPorID(pIdProducto);
+  reservarDestino (pIdDestino, pNombreUsuario) {
+    let destinoAComprar = this.buscarDestinoPorIDVERSIONPROFE(pIdDestino);
     let usuarioComprador = this.buscarUsuario(pNombreUsuario);
 
     if (destinoAComprar !== null && usuarioComprador !== null) {
@@ -451,7 +451,25 @@ activarOferta(pIdDestino) {
     } else {
         console.error("Error en la reserva");
     }
+  }
+// ---------------------------------------
+buscarDestinoPorIDVERSIONPROFE(pIdDestino) {
+    let destinoEncontrado = null;
+
+    let i = 0;
+
+    while (i < this.destinos.length && destinoEncontrado === null) {
+        let destinoActual = this.destinos[i];
+        if (destinoActual.id === pIdDestino) {
+          destinoActual = destinoEncontrado;
+        }
+        i++;
+    }
+    return destinoEncontrado;
 }
+
 
   
 }
+
+
